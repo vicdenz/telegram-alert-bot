@@ -47,15 +47,15 @@ def valid_time(time):
 
     return bool(re.search(p, time))
 
-def start_request(message):
+def create_request(message):
     request = message.text.split(" ", 2)
-    if len(request) == 3 and request[0] == '/start' and valid_time(request[1]) and request[2][0] == '"' and request[2][-1] == '"':
+    if len(request) == 3 and request[0] == '/create' and valid_time(request[1]) and request[2][0] == '"' and request[2][-1] == '"':
         return True
     return False
 
 #/start 0:00 "YOUR MESSAGE"
-@bot.message_handler(func=start_request)
-def start(message):
+@bot.message_handler(func=create_request)
+def create(message):
     request = message.text.split(" ", 2)[1:]
     time = request[0].split(":")
     time = dt.datetime.combine(dt.date.today(), dt.time(int(time[0]), int(time[1])))
